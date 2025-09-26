@@ -32,11 +32,6 @@ const loadingText = ref('');
 const code = route.query.code as string;
 const state = route.query.state as string;
 const source = route.query.source as string;
-const stateJson = JSON.parse(atob(state));
-
-const effectTenantId = computed(() =>
-  (stateJson.tenantId as string) ? (stateJson.tenantId as string) : tenantId.value,
-);
 
 const processResponse = async (res: any) => {
   if (res.code !== 200) {
@@ -83,7 +78,7 @@ const init = async () => {
   const data: LoginData = {
     socialCode: code,
     socialState: state,
-    tenantId: effectTenantId.value,
+    tenantId: tenantId.value,
     source,
     clientId: import.meta.env.VITE_CLIENT_ID,
     grantType: 'social',
